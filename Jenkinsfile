@@ -5,7 +5,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo "Building Docker Image..."
-                bat "docker build -t journal-app:v1 ."
+                bat "docker build -t playlist ."
             }
         }
 
@@ -22,8 +22,8 @@ pipeline {
         stage('Push Docker Image to Dockerhub') {
             steps {
                 echo "Pushing Docker image to Dockerhub..."
-                bat "docker tag journal-app:v1 zzonnaa/journal-app:v1"
-                bat "docker push zzonnaa/journal-app:v1"
+                bat "docker tag playlist shivani1128/playlist_music"
+                bat "docker push shivani1128/playlist_music"
             }
         }
 
@@ -37,7 +37,7 @@ pipeline {
         stage('Restart Deployment') {
             steps {
                 echo "Restarting Deployment to pick up new image..."
-                bat "kubectl rollout restart deployment/journal-deployment"
+                bat "kubectl rollout restart deployment/playlist-deployment"
             }
         }
     }
