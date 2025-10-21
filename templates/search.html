@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Search - Music Playlist Manager{% endblock %}
+
+{% block content %}
+<h2 style="color: #2c3e50; margin-bottom: 30px; text-align: center;">🔍 Search Music</h2>
+
+<form method="GET" action="{{ url_for('search') }}" style="max-width: 800px;">
+    <div class="form-group">
+        <input type="search" name="q" value="{{ query }}" placeholder="Search playlists, songs, or artists..." style="font-size: 1.1em;">
+    </div>
+    <div class="form-group" style="text-align: center;">
+        <button type="submit" class="btn btn-success">Search</button>
+    </div>
+</form>
+
+{% if query %}
+    <div style="margin-top: 40px;">
+        <h3 style="color: #2c3e50; margin-bottom: 20px;">Search Results for "{{ query }}"</h3>
+        
+        {% if playlists %}
+            <p style="color: #7f8c8d; margin-bottom: 20px;">Found {{ playlists|length }} playlist(s)</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
+                {% for playlist in playlists %}
+                <div style="border: 2px solid #3498db; border-radius: 15px; padding: 20px; background: #f8f9fa;">
+                    <h3 style="color: #2c3e50; margin-bottom: 10px;">🎵 {{ playlist.name }}</h3>
+                    
+                    {% if playlist.genre %}
+                    <p style="color: #7f8c8d; margin-bottom: 8px;"><strong>Genre:</strong> {{ playlist.genre }}</p>
+                    {% endif %}
+                    
+                    {% if playlist.description %}
+                    <p style="color: #555; margin-bottom: 15px;">{{ playlist.description }}</p>
+                    {% endif %}
+                    
+                    <p style="color: #7f8c8d; margin-bottom: 15px;"><strong>Songs:</strong> {{ playlist.songs|length }}</p>
+                    
+                    <a href="{{ url_for('view_playlist', playlist_id=playlist.id) }}" class="btn">View Playlist</a>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div style="text-align: center; padding: 60px 20px; background: #f8f9fa; border-radius: 15px;">
+                <h3 style="color: #7f8c8d; margin-bottom: 20px;">No results found</h3>
+                <p style="color: #95a5a6;">Try searching with different keywords.</p>
+            </div>
+        {% endif %}
+    </div>
+{% endif %}
+{% endblock %}
+

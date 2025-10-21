@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Music Playlist Manager{% endblock %}
+
+{% block content %}
+<div style="text-align: center;">
+    <h2 style="color: #2c3e50; margin-bottom: 30px;">Welcome to Your Music Playlist Manager</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 40px 0;">
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 15px; color: white;">
+            <h3 style="font-size: 3em; margin-bottom: 10px;">{{ total_playlists }}</h3>
+            <p style="font-size: 1.2em;">Total Playlists</p>
+        </div>
+        
+        <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 30px; border-radius: 15px; color: white;">
+            <h3 style="font-size: 3em; margin-bottom: 10px;">{{ total_songs }}</h3>
+            <p style="font-size: 1.2em;">Total Songs</p>
+        </div>
+    </div>
+    
+    <div style="margin-top: 50px;">
+        <h3 style="color: #2c3e50; margin-bottom: 20px;">Quick Actions</h3>
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <a href="{{ url_for('create_playlist') }}" class="btn btn-success">Create New Playlist</a>
+            <a href="{{ url_for('playlists') }}" class="btn">View All Playlists</a>
+            <a href="{{ url_for('search') }}" class="btn">Search Music</a>
+        </div>
+    </div>
+    
+    <div style="margin-top: 50px; padding: 30px; background: #f8f9fa; border-radius: 15px; text-align: left;">
+        <h3 style="color: #2c3e50; margin-bottom: 15px;">✨ Features</h3>
+        <ul style="list-style: none; padding: 0;">
+            <li style="padding: 10px 0; border-bottom: 1px solid #ddd;">📝 Create and manage multiple playlists</li>
+            <li style="padding: 10px 0; border-bottom: 1px solid #ddd;">🎵 Add songs with title, artist, and duration</li>
+            <li style="padding: 10px 0; border-bottom: 1px solid #ddd;">🔍 Search across all playlists and songs</li>
+            <li style="padding: 10px 0; border-bottom: 1px solid #ddd;">🎨 Organize by genre and description</li>
+            <li style="padding: 10px 0;">🚀 Deployed via CI/CD with Jenkins & Kubernetes</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+

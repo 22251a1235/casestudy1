@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}{{ playlist.name }} - Music Playlist Manager{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 30px;">
+    <a href="{{ url_for('playlists') }}" class="btn">← Back to Playlists</a>
+</div>
+
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 15px; color: white; margin-bottom: 30px;">
+    <h2 style="margin-bottom: 15px;">🎵 {{ playlist.name }}</h2>
+    {% if playlist.genre %}
+    <p style="margin-bottom: 10px;"><strong>Genre:</strong> {{ playlist.genre }}</p>
+    {% endif %}
+    {% if playlist.description %}
+    <p style="margin-bottom: 10px;">{{ playlist.description }}</p>
+    {% endif %}
+    <p style="font-size: 0.9em; opacity: 0.9;">Created: {{ playlist.created_at }}</p>
+</div>
+
+<h3 style="color: #2c3e50; margin-bottom: 20px;">🎶 Songs ({{ playlist.songs|length }})</h3>
+
+{% if playlist.songs %}
+    <div style="margin-bottom: 30px;">
+        {% for song in playlist.songs %}
+        <div style="border-left: 4px solid #3498db; padding: 15px; margin-bottom: 10px; background: #f8f9fa; border-radius: 8px;">
+            <h4 style="color: #2c3e50; margin-bottom: 5px;">{{ song.title }}</h4>
+            <p style="color: #7f8c8d; margin-bottom: 5px;">Artist: {{ song.artist }}</p>
+            <p style="color: #95a5a6; font-size: 0.9em;">Duration: {{ song.duration }}</p>
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p style="color: #7f8c8d; margin-bottom: 30px;">No songs in this playlist yet. Add your first song below!</p>
+{% endif %}
+
+<div style="background: #f8f9fa; padding: 30px; border-radius: 15px; margin-top: 30px;">
+    <h3 style="color: #2c3e50; margin-bottom: 20px;">➕ Add New Song</h3>
+    
+    <form method="POST" action="{{ url_for('add_song', playlist_id=playlist.id) }}">
+        <div class="form-group">
+            <label for="song_title">Song Title *</label>
+            <input type="text" id="song_title" name="song_title" required placeholder="Enter song title">
+        </div>
+        
+        <div class="form-group">
+            <label for="artist">Artist *</label>
+            <input type="text" id="artist" name="artist" required placeholder="Enter artist name">
+        </div>
+        
+        <div class="form-group">
+            <label for="duration">Duration</label>
+            <input type="text" id="duration" name="duration" placeholder="e.g., 3:45">
+        </div>
+        
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Add Song</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
